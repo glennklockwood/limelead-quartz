@@ -5,6 +5,6 @@
 if [ "$1" == "test" -o "$1" == "--test" ]; then
     npx quartz build --serve
 else
-    npx quartz build --concurrency 8 && rsync -avP public/ webhost:glennklockwood.com/garden/
+    npx quartz build --concurrency 8 && rsync --delete -avP public/ webhost:glennklockwood.com/garden/
 fi
 
