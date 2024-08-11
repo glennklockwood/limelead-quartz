@@ -12,7 +12,8 @@ const config: QuartzConfig = {
     enableSPA: true,
     enablePopovers: true,
     analytics: {
-      provider: "plausible",
+      provider: 'google',
+      tagId: 'G-VF5N38Z4G0'
     },
     locale: "en-US",
     baseUrl: "glennklockwood.com/garden",
