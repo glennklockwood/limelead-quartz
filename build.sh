@@ -6,9 +6,15 @@ if [ ! -d content ]; then
     exit 1
 fi
 
+rsync_only() {
+    rsync --delete -avP public/ webhost:glennklockwood.com/garden/
+}
+
 if [ "$1" == "test" -o "$1" == "--test" ]; then
     npx quartz build --serve
+elif [ "$1" == "rsync" -o "$1" == "--rsync" ]; then
+    rsync_only
 else
-    npx quartz build --concurrency 8 && rsync --delete -avP public/ webhost:glennklockwood.com/garden/
+    npx quartz build --concurrency 8 && rsync_only
 fi
 
