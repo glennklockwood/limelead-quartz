@@ -18,7 +18,7 @@ const config: QuartzConfig = {
     locale: "en-US",
     baseUrl: "glennklockwood.com/garden",
     ignorePatterns: ["private", "templates", ".obsidian"],
-    defaultDateType: "created",
+    defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
@@ -38,6 +38,7 @@ const config: QuartzConfig = {
           tertiary: "#536DFE",
           highlight: "rgba(143, 159, 169, 0.15)",
           textHighlight: "#fff23688",
+          background: "url('/garden/attachments/glass-tile-white-blended-90.png') repeat",
         },
         darkMode: {
           light: "#161618",
@@ -49,6 +50,7 @@ const config: QuartzConfig = {
           tertiary: "#9FA8DA",
           highlight: "rgba(143, 159, 169, 0.15)",
           textHighlight: "#b3aa0288",
+          background: "url('/garden/attachments/glass-tile-black-blended-70.png') repeat",
         },
       },
     },
