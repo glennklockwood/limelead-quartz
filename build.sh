@@ -7,7 +7,7 @@ if [ ! -d content ]; then
 fi
 
 rsync_only() {
-    rsync --delete -avP public/ webhost:glennklockwood.com/garden/
+    rsync --delete --chmod ugo+rX -rltvP public/ webhost:glennklockwood.com/garden/
 }
 
 if [ "$1" == "test" -o "$1" == "--test" ]; then
