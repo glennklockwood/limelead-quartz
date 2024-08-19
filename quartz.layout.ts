@@ -25,30 +25,34 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
+    Component.DesktopOnly(Component.TableOfContents()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.TableOfContents()),
   ],
   right: [
     Component.Graph({localGraph: {depth: 2}}),
     Component.Backlinks(),
-//  Component.DesktopOnly(Component.RecentNotes({
-//      title: "Recent changes",
-//      limit: 5,
-//      showTags: false,
-//  })),
+//  Component.RecentNotes({
+//    title: "Recent changes",
+//    limit: 5,
+//    showTags: false,
+//  }),
   ],
 }
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  beforeBody: [
+    Component.Breadcrumbs(),
+    Component.ArticleTitle(),
+    Component.ContentMeta()
+  ],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
+    Component.DesktopOnly(Component.Explorer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
   ],
   right: [],
 }
