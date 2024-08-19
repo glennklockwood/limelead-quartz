@@ -19,7 +19,7 @@ export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
     Component.ArticleTitle(),
-    Component.ContentMeta(),
+    Component.ContentMeta({showReadingTime: false}),
     Component.TagList(),
   ],
   left: [
@@ -27,21 +27,16 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.RecentNotes({
-        title: "Recent changes",
-        limit: 5,
-        showTags: false,
-    })),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(Component.TableOfContents()),
   ],
   right: [
-    Component.Graph({
-        localGraph: {
-            depth: 2,
-        },
-    }),
-    Component.DesktopOnly(Component.TableOfContents()),
+    Component.Graph({localGraph: {depth: 2}}),
     Component.Backlinks(),
+//  Component.DesktopOnly(Component.RecentNotes({
+//      title: "Recent changes",
+//      limit: 5,
+//      showTags: false,
+//  })),
   ],
 }
 
