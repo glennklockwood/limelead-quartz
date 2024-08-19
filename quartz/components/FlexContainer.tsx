@@ -2,9 +2,9 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 
 export default ((components?: QuartzComponent[]) => {
   if (components && components.length > 0) {
-    const DesktopOnly: QuartzComponent = (props: QuartzComponentProps) => {
+    const FlexContainer: QuartzComponent = (props: QuartzComponentProps) => {
       return (
-        <div style="flex: 1; flex-direction: column">
+        <div className="FlexContainer">
         <>
           {components.map((Component, index) => (
             <Component key={index} {...props} />
@@ -14,12 +14,16 @@ export default ((components?: QuartzComponent[]) => {
       )
     }
 
-    DesktopOnly.displayName = "DesktopOnlyWrapper"
-    //DesktopOnly.afterDOMLoaded = components.some(component => component?.afterDOMLoaded) ? () => components.forEach(component => component?.afterDOMLoaded?.()) : undefined
-    //DesktopOnly.beforeDOMLoaded = components.some(component => component?.beforeDOMLoaded) ? () => components.forEach(component => component?.beforeDOMLoaded?.()) : undefined
-    //DesktopOnly.css = components.flatMap(component => component?.css || [])
+    FlexContainer.displayName = "FlexContainerWrapper"
+    //FlexContainer.afterDOMLoaded = components.some(component => component?.afterDOMLoaded) ? () => components.forEach(component => component?.afterDOMLoaded?.()) : undefined
+    //FlexContainer.beforeDOMLoaded = components.some(component => component?.beforeDOMLoaded) ? () => components.forEach(component => component?.beforeDOMLoaded?.()) : undefined
+    //FlexContainer.css = components.flatMap(component => component?.css || []).join(";\n")
+    const cssArray = components.flatMap(component => component?.css || []).filter(css => css && css.trim() !== "")
+    console.log("CSS Array:", cssArray.join(";"))
+    // the following causes everything to break. not sure why
+    //FlexContainer.css = cssArray.join(";")
 
-    return DesktopOnly
+    return FlexContainer
   } else {
     return () => <></>
   }
