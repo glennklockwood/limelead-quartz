@@ -1,6 +1,185 @@
 @use "./base.scss";
+@use "./variables.scss" as *;
 
 // put your custom CSS here!
 body {
   background: var(--background);
+}
+
+.desktop-only {
+  display: initial;
+  @media all and (max-width: $fullPageWidth) {
+    display: initial;
+  }
+  @media all and (max-width: $medPageWidth) {
+    display: none;
+  }
+}
+
+
+.page {
+  // small screen
+  @media all and (max-width: $medPageWidth) {
+    margin: 0 auto;
+    padding: 0 1rem;
+    max-width: $pageWidth;
+  }
+  // intermediate screen
+  @media all and (min-width: $medPageWidth) and (max-width: $fullPageWidth) {
+    margin: initial;
+    padding: 0 1rem;
+  }
+  // default: big screen
+
+  & article {
+    & > h1 {
+      font-size: 2rem;
+    }
+
+    & li:has(> input[type="checkbox"]) {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    & li:has(> input[type="checkbox"]:checked) {
+      text-decoration: line-through;
+      text-decoration-color: var(--gray);
+      color: var(--gray);
+    }
+
+    & li > * {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    p > strong {
+      color: var(--dark);
+    }
+  }
+
+  & > #quartz-body {
+    width: 100%;
+    display: flex;
+    @media all and (max-width: $fullPageWidth) {
+      flex-direction: column;
+    }
+
+    & .sidebar {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      top: 0;
+      width: $sidePanelWidth;
+      margin-top: $topSpacing;
+      box-sizing: border-box;
+      padding: 0 4rem;
+      position: fixed;
+    }
+
+    & .sidebar.left {
+      // big screen (default)
+      left: calc(calc(100vw - $pageWidth) / 2 - $sidePanelWidth);
+      gap: 1rem;
+
+      // small screen
+      @media all and (max-width: $medPageWidth) {
+        gap: 0;
+        align-items: center;
+
+        position: initial;
+        flex-direction: row;
+        padding: 0;
+        width: initial;
+        margin-top: 2rem;
+
+      }
+      // medium screen
+      @media all and (min-width: $medPageWidth) and (max-width: $fullPageWidth) {
+        gap: 1rem;
+        left: initial;
+        align-items: initial;
+      }
+
+      .mobile-only {
+        display: none;
+        @media all and (max-width: $medPageWidth) {
+          display: initial;
+        }
+      }
+    }
+
+    & .sidebar.right {
+      // big screen
+      right: calc(calc(100vw - $pageWidth) / 2 - $sidePanelWidth);
+      flex-wrap: wrap;
+
+      // small screen
+      @media all and (max-width: $medPageWidth) {
+        position: initial;
+        flex-direction: row;
+        padding: 0;
+        width: initial;
+        margin-top: 2rem;
+      }
+      & > * {
+        // small+medium screens
+        @media all and (max-width: $fullPageWidth) {
+          flex: 1;
+          min-width: 140px;
+        }
+      }
+      // medium screen
+      @media all and (min-width: $medPageWidth) and (max-width: $fullPageWidth) {
+        margin-left: $sidePanelWidth;
+        position: initial;
+        flex-direction: row;
+        padding: 0;
+        width: $pageWidth;
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  & .page-header,
+  & .page-footer {
+    width: $pageWidth;
+    margin-top: 1rem;
+
+    // small+medium screens
+    @media all and (max-width: $fullPageWidth) {
+      width: initial;
+    }
+  }
+
+  & .page-header {
+    margin: $topSpacing auto 0 auto;
+
+    // small screen
+    @media all and (max-width: $medPageWidth) {
+      margin-top: 2rem;
+    }
+  }
+
+  & .center,
+  & footer {
+    // big screen (default)
+    margin-left: auto;
+    margin-right: auto;
+    width: $pageWidth;
+
+    // small screen
+    @media all and (max-width: $medPageWidth) {
+      width: initial;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    // medium screen
+    @media all and (min-width: $medPageWidth) and (max-width: $fullPageWidth) {
+      margin-left: $sidePanelWidth;
+      margin-right: 0;
+      padding-right: 4rem;
+    }
+  }
 }
