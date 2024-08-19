@@ -10,11 +10,23 @@ rsync_only() {
     rsync --delete --chmod ugo+rX -rltvP public/ webhost:glennklockwood.com/garden/
 }
 
+compare() {
+    rsync -avzi --dry-run public/ webhost:glennklockwood.com/garden/
+}
+
+build_only() {
+    npx quartz build --concurrency 8
+}
+
 if [ "$1" == "test" -o "$1" == "--test" ]; then
     npx quartz build --serve
 elif [ "$1" == "rsync" -o "$1" == "--rsync" ]; then
     rsync_only
+elif [ "$1" == "build-only" -o "$1" == "--build-only" ]; then
+    build_only
+elif [ "$1" == "compare" -o "$1" == "--compare" ]; then
+    compare
 else
-    npx quartz build --concurrency 8 && rsync_only
+    build_only 8 && rsync_only
 fi
 
