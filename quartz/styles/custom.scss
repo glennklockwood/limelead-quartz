@@ -187,3 +187,25 @@ body {
     }
   }
 }
+
+.footnotes {
+  margin-top: 2.0rem;
+  border-top: 1px solid var(--lightgray);
+  border-bottom: 1px solid var(--lightgray);
+
+  & > h2 {
+      margin: 0rem;
+      padding: 0.5rem;
+      font-size: 1.0rem;
+  }
+
+  & > ol {
+    margin: 0;
+    padding-bottom: 0.5rem;
+    font-size: 0.9rem;
+
+    & > li > * {
+      line-height: 0.9rem;
+    }
+  }
+}
