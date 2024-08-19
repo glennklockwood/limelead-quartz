@@ -21,13 +21,14 @@ body {
   // small screen
   @media all and (max-width: $medPageWidth) {
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 4rem;
     max-width: $pageWidth;
   }
   // intermediate screen
   @media all and (min-width: $medPageWidth) and (max-width: $fullPageWidth) {
-    margin: initial;
+    margin: 0 auto;
     padding: 0 1rem;
+    max-width: $medPageWidth;
   }
   // default: big screen
 
@@ -113,6 +114,9 @@ body {
       // big screen
       right: calc(calc(100vw - $pageWidth) / 2 - $sidePanelWidth);
       flex-wrap: wrap;
+      & > * {
+        width: 100%;
+      }
 
       // small screen
       @media all and (max-width: $medPageWidth) {
