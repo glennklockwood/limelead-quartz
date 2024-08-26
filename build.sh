@@ -16,6 +16,7 @@ compare() {
 
 build_only() {
     npx quartz build --concurrency 8
+    mv -v public/static/.htaccess public/
 }
 
 if [ "$1" == "test" -o "$1" == "--test" ]; then
