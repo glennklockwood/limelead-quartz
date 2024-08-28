@@ -35,7 +35,15 @@ export const defaultContentPageLayout: PageLayout = {
     })),
   ],
   right: [
-    Component.Graph({localGraph: {depth: 2}}),
+    Component.Graph({
+        localGraph: {
+            depth: 2,
+            showTags: false,
+        },
+        globalGraph: {
+            showTags: false,
+        },
+    }),
     Component.Backlinks(),
 //  Component.RecentNotes({
 //    title: "Recent changes",
