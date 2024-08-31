@@ -8,10 +8,10 @@ RewriteEngine On
 # Apache wants tags/system -> tags/system/
 DirectorySlash Off
 
-# Capture the relative path to the current directory
-RewriteCond %{REQUEST_URI} ^(.*/)?tags/([^/]+)/?$
+# Match any subdirectory or nested directory under /tags/
+RewriteCond %{REQUEST_URI} ^(.*/)?tags/(.*)/?$
 
-# Check if the corresponding .html file exists, using the relative path
+# Check if the corresponding .html file exists (e.g., /garden/tags/system/usa/doe/ascr.html)
 RewriteCond %{DOCUMENT_ROOT}%1tags/%2.html -f
 
 # If both conditions are true, redirect to the .html file
