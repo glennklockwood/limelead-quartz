@@ -1,1 +1,22 @@
 ErrorDocument 404 /garden/404
+
+RewriteEngine On
+
+# need this because of the way tag nesting in Quartz works:
+# Quartz wants tags/system -> tags/system.html
+# Apache wants tags/system -> tags/system/
+DirectorySlash Off
+
+# Check if the request is for any subdirectory under /garden/tags/, with or without a trailing slash
+RewriteCond %{REQUEST_URI} ^/garden/tags/([^/]+)/?$
+
+# Check if the corresponding .html file exists (e.g., /garden/tags/subdirectory.html)
+RewriteCond %{DOCUMENT_ROOT}/garden/tags/%1.html -f
+
+# If both conditions are true, redirect to /garden/tags/subdirectory.html
+RewriteRule ^ /garden/tags/%1.html [L]
+
+# General rule to handle ".html" files for other requests
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]
