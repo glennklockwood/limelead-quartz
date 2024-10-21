@@ -28,7 +28,11 @@ export const defaultContentPageLayout: PageLayout = {
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(Component.Explorer({
+        filterFn: (node) => {
+            return node.file?.frontmatter?.unlisted !== true
+        },
+    })),
     Component.DesktopOnly(Component.RecentNotes({
       limit: 5,
       showTags: false,
@@ -63,7 +67,12 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(Component.Explorer({
+        filterFn: (node) => {
+            // exclude files with the tag "explorerexclude"
+            return node.file?.frontmatter?.unlisted !== true
+        },
+    })),
     Component.Search(),
     Component.Darkmode(),
   ],
