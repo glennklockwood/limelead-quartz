@@ -37,6 +37,26 @@ export const defaultContentPageLayout: PageLayout = {
                 return true
             }
         },
+        sortFn: (a, b) => {
+            // if both are files or both are folders, sort by name
+            if ((!a.file && !b.file) || (a.file && b.file)) {
+                if (a.file?.frontmatter?.tags?.includes("evergreen")
+                && !b.file?.frontmatter?.tags?.includes("evergreen")) {
+                    return -1
+                }
+                if (!a.file?.frontmatter?.tags?.includes("evergreen")
+                && b.file?.frontmatter?.tags?.includes("evergreen")) {
+                    return 1
+                }
+                return a.displayName.localeCompare(b.displayName)
+            }
+            // not files (folders) come first
+            if (a.file && !b.file) {
+                return 1
+            } else {
+                return -1
+            }
+        },
     })),
     Component.DesktopOnly(Component.RecentNotes({
       limit: 5,
@@ -79,6 +99,26 @@ export const defaultListPageLayout: PageLayout = {
                 return false
             } else {
                 return true
+            }
+        },
+        sortFn: (a, b) => {
+            // if both are files or both are folders, sort by name
+            if ((!a.file && !b.file) || (a.file && b.file)) {
+                if (a.file?.frontmatter?.tags?.includes("evergreen")
+                && !b.file?.frontmatter?.tags?.includes("evergreen")) {
+                    return -1
+                }
+                if (!a.file?.frontmatter?.tags?.includes("evergreen")
+                && b.file?.frontmatter?.tags?.includes("evergreen")) {
+                    return 1
+                }
+                return a.displayName.localeCompare(b.displayName)
+            }
+            // not files (folders) come first
+            if (a.file && !b.file) {
+                return 1
+            } else {
+                return -1
             }
         },
     })),
