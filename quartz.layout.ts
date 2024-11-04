@@ -29,8 +29,13 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Search(),
     Component.Darkmode(),
     Component.DesktopOnly(Component.Explorer({
+        // see https://quartz.jzhao.xyz/features/explorer#advanced-customization
         filterFn: (node) => {
-            return node.file?.frontmatter?.unlisted !== true
+            if ((node.file?.frontmatter?.unlisted === true) || (node.file?.frontmatter?.tags?.includes("seedling") === true)) {
+                return false
+            } else {
+                return true
+            }
         },
     })),
     Component.DesktopOnly(Component.RecentNotes({
@@ -68,9 +73,13 @@ export const defaultListPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.DesktopOnly(Component.Explorer({
+        // see https://quartz.jzhao.xyz/features/explorer#advanced-customization
         filterFn: (node) => {
-            // exclude files with the tag "explorerexclude"
-            return node.file?.frontmatter?.unlisted !== true
+            if ((node.file?.frontmatter?.unlisted === true) || (node.file?.frontmatter?.tags?.includes("seedling") === true)) {
+                return false
+            } else {
+                return true
+            }
         },
     })),
     Component.Search(),
