@@ -209,3 +209,14 @@ body {
     }
   }
 }
+
+#explorer-content {
+  li {
+    a {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+  }
+}
