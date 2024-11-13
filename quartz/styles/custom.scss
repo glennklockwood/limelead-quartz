@@ -76,6 +76,14 @@ body {
       box-sizing: border-box;
       padding: 0 4rem;
       position: fixed;
+      & .recent-notes {
+        a {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          display: block;
+          overflow: hidden;
+        }
+      }
     }
 
     & .sidebar.left {
