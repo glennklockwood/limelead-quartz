@@ -1,0 +1,23 @@
+ErrorDocument 404 /garden/404
+
+RewriteEngine On
+
+# Disable automatic trailing slash redirection
+# need this because of the way tag nesting in Quartz works:
+# Quartz wants tags/system -> tags/system.html
+# Apache wants tags/system -> tags/system/
+DirectorySlash Off
+
+# Match any subdirectory or nested directory under /tags/
+RewriteCond %{REQUEST_URI} ^(.*/)?tags/(.*)/?$
+
+# Check if the corresponding .html file exists (e.g., /garden/tags/system/usa/doe/ascr.html)
+RewriteCond %{DOCUMENT_ROOT}%1tags/%2.html -f
+
+# If both conditions are true, redirect to the .html file
+RewriteRule ^ %1tags/%2.html [L]
+
+# General rule to handle ".html" files for other requests
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]

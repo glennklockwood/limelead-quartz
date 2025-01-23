@@ -1,3 +1,104 @@
 @use "./base.scss";
+@use "./variables.scss" as *;
 
 // put your custom CSS here!
+body {
+  background: var(--background);
+}
+
+.page {
+  @media all and not ($desktop) {
+    margin: 0 auto;
+    padding-right: 1rem;
+  }
+
+  & article {
+    & > h1 {
+      font-size: 2rem;
+    }
+
+    & li:has(> input[type="checkbox"]) {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    & li:has(> input[type="checkbox"]:checked) {
+      text-decoration: line-through;
+      text-decoration-color: var(--gray);
+      color: var(--gray);
+    }
+
+    & li > * {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    p > strong {
+      color: var(--dark);
+    }
+  }
+
+  & > #quartz-body {
+    gap: 1rem;
+    & .sidebar {
+      .recent-notes {
+        ul.recent-ul>li {
+          margin: 0;
+          .section>.meta {
+            line-height: initial;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin: 0 0 0.4rem;
+          }
+        }
+        a {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          display: block;
+          overflow: hidden;
+        }
+        h3 {
+          line-height: initial;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    & .sidebar.left {
+      column-gap: 1rem;
+    }
+  }
+}
+
+.footnotes {
+  margin-top: 2.0rem;
+  border-top: 1px solid var(--lightgray);
+  border-bottom: 1px solid var(--lightgray);
+
+  & > h2 {
+      margin: 0rem;
+      padding: 0.5rem;
+      font-size: 1.0rem;
+  }
+
+  & > ol {
+    margin: 0;
+    padding-bottom: 0.5rem;
+    font-size: 0.9rem;
+
+    & > li > * {
+      line-height: 0.9rem;
+    }
+  }
+}
+
+#explorer-content {
+  li {
+    a {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+  }
+}
