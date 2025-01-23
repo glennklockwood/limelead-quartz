@@ -30,7 +30,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Search(),
-    Component.Darkmode(),
+    //Component.Darkmode(),
     Component.DesktopOnly(Component.Explorer({
         // see https://quartz.jzhao.xyz/features/explorer#advanced-customization
         filterFn: (node) => {
@@ -126,7 +126,7 @@ export const defaultListPageLayout: PageLayout = {
         },
     })),
     Component.Search(),
-    Component.Darkmode(),
+    //Component.Darkmode(),
   ],
   right: [],
 }
