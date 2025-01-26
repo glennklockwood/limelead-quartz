@@ -14,7 +14,43 @@ export const sharedPageComponents: SharedLayout = {
   }),
 }
 
-// components for pages that display a single page (e.g. a single note)
+function configuredExplorerComponent() {
+  return Component.Explorer({
+    // see https://quartz.jzhao.xyz/features/explorer#advanced-customization
+    filterFn: (node) => {
+      if (
+        (node.file?.frontmatter?.unlisted === true)
+        || (node.file?.frontmatter?.tags?.includes("seedling") === true)
+        || ((node.name == "entities" && !node.file))
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    sortFn: (a, b) => {
+      // if both are files or both are folders, sort by name
+      if ((!a.file && !b.file) || (a.file && b.file)) {
+        if (a.file?.frontmatter?.tags?.includes("evergreen")
+          && !b.file?.frontmatter?.tags?.includes("evergreen")) {
+          return -1;
+        }
+        if (!a.file?.frontmatter?.tags?.includes("evergreen")
+          && b.file?.frontmatter?.tags?.includes("evergreen")) {
+          return 1;
+        }
+        return a.displayName.localeCompare(b.displayName);
+      }
+      // not files (folders) come first
+      if (a.file && !b.file) {
+        return 1;
+      } else {
+        return -1;
+      }
+    },
+  });
+}
+
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
@@ -28,60 +64,17 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.DesktopOnly(Component.TableOfContents()),
     Component.Search(),
-    //Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer({
-        // see https://quartz.jzhao.xyz/features/explorer#advanced-customization
-        filterFn: (node) => {
-            if ((node.file?.frontmatter?.unlisted === true) || (node.file?.frontmatter?.tags?.includes("seedling") === true)) {
-                return false
-            } else {
-                return true
-            }
-        },
-        sortFn: (a, b) => {
-            // if both are files or both are folders, sort by name
-            if ((!a.file && !b.file) || (a.file && b.file)) {
-                if (a.file?.frontmatter?.tags?.includes("evergreen")
-                && !b.file?.frontmatter?.tags?.includes("evergreen")) {
-                    return -1
-                }
-                if (!a.file?.frontmatter?.tags?.includes("evergreen")
-                && b.file?.frontmatter?.tags?.includes("evergreen")) {
-                    return 1
-                }
-                return a.displayName.localeCompare(b.displayName)
-            }
-            // not files (folders) come first
-            if (a.file && !b.file) {
-                return 1
-            } else {
-                return -1
-            }
-        },
-    })),
-    Component.DesktopOnly(Component.RecentNotes({
-      limit: 5,
-      showTags: false,
-    })),
+    Component.DesktopOnly(configuredExplorerComponent()),
+//  Component.DesktopOnly(Component.RecentNotes({limit: 5, showTags: false})),
   ],
   right: [
     Component.Graph({
-        localGraph: {
-            depth: 2,
-            showTags: false,
-        },
-        globalGraph: {
-            showTags: false,
-        },
+      localGraph: { depth: 2, showTags: false, },
+      globalGraph: { showTags: false, }
     }),
+    Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
-//  Component.RecentNotes({
-//    title: "Recent changes",
-//    limit: 5,
-//    showTags: false,
-//  }),
   ],
 }
 
@@ -95,38 +88,8 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.DesktopOnly(Component.Explorer({
-        // see https://quartz.jzhao.xyz/features/explorer#advanced-customization
-        filterFn: (node) => {
-            if ((node.file?.frontmatter?.unlisted === true) || (node.file?.frontmatter?.tags?.includes("seedling") === true)) {
-                return false
-            } else {
-                return true
-            }
-        },
-        sortFn: (a, b) => {
-            // if both are files or both are folders, sort by name
-            if ((!a.file && !b.file) || (a.file && b.file)) {
-                if (a.file?.frontmatter?.tags?.includes("evergreen")
-                && !b.file?.frontmatter?.tags?.includes("evergreen")) {
-                    return -1
-                }
-                if (!a.file?.frontmatter?.tags?.includes("evergreen")
-                && b.file?.frontmatter?.tags?.includes("evergreen")) {
-                    return 1
-                }
-                return a.displayName.localeCompare(b.displayName)
-            }
-            // not files (folders) come first
-            if (a.file && !b.file) {
-                return 1
-            } else {
-                return -1
-            }
-        },
-    })),
     Component.Search(),
-    //Component.Darkmode(),
+    Component.DesktopOnly(configuredExplorerComponent()),
   ],
   right: [],
 }
