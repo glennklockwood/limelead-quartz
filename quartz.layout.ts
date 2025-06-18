@@ -70,7 +70,7 @@ export const defaultContentPageLayout: PageLayout = {
   ],
   right: [
     Component.Graph({
-      localGraph: { depth: 2, showTags: false, },
+      localGraph: { depth: 1, showTags: false, },
       globalGraph: { showTags: false, }
     }),
     Component.DesktopOnly(Component.TableOfContents()),
