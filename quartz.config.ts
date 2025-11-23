@@ -18,7 +18,7 @@ const config: QuartzConfig = {
     },
     locale: "en-US",
     baseUrl: "glennklockwood.com/garden",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    ignorePatterns: ["private", "templates", ".obsidian", "**/_*/**", "**/_*"],
     defaultDateType: "modified",
     generateSocialImages: true,
     theme: {
