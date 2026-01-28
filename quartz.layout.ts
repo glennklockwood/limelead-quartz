@@ -19,9 +19,9 @@ function configuredExplorerComponent() {
     // see https://quartz.jzhao.xyz/features/explorer#advanced-customization
     filterFn: (node) => {
       if (
-        (node.file?.frontmatter?.unlisted === true)
-        || (node.file?.frontmatter?.tags?.includes("seedling") === true)
-        || ((node.name == "entities" && !node.file))
+        (node.data?.tags?.includes("seedling") === true)
+        || (node.data?.tags?.includes("unlisted") === true)
+        || ((node.displayName == "entities" && !node.data))
       ) {
         return false;
       } else {
@@ -30,19 +30,19 @@ function configuredExplorerComponent() {
     },
     sortFn: (a, b) => {
       // if both are files or both are folders, sort by name
-      if ((!a.file && !b.file) || (a.file && b.file)) {
-        if (a.file?.frontmatter?.tags?.includes("evergreen")
-          && !b.file?.frontmatter?.tags?.includes("evergreen")) {
+      if ((!a.data && !b.data) || (a.data && b.data)) {
+        if (a.data?.tags?.includes("evergreen")
+          && !b.data?.tags?.includes("evergreen")) {
           return -1;
         }
-        if (!a.file?.frontmatter?.tags?.includes("evergreen")
-          && b.file?.frontmatter?.tags?.includes("evergreen")) {
+        if (!a.data?.tags?.includes("evergreen")
+          && b.data?.tags?.includes("evergreen")) {
           return 1;
         }
         return a.displayName.localeCompare(b.displayName);
       }
       // not files (folders) come first
-      if (a.file && !b.file) {
+      if (a.data && !b.data) {
         return 1;
       } else {
         return -1;
@@ -65,7 +65,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
-    Component.DesktopOnly(configuredExplorerComponent()),
+    configuredExplorerComponent(),
 //  Component.DesktopOnly(Component.RecentNotes({limit: 5, showTags: false})),
   ],
   right: [
@@ -89,7 +89,7 @@ export const defaultListPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
-    Component.DesktopOnly(configuredExplorerComponent()),
+    configuredExplorerComponent(),
   ],
   right: [],
 }
