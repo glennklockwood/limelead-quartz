@@ -15,7 +15,7 @@ compare() {
 }
 
 build_only() {
-    npx quartz build --concurrency 8 -d _content
+    npx quartz build --concurrency 8 -d _content && cp -v quartz/static/.htaccess public/
     test -f public/index.html
 }
 
