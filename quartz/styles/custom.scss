@@ -1,3 +1,75 @@
 @use "./variables.scss" as *;
 
 // put your custom CSS here!
+body {
+  background: url('/garden/attachments/glass-tile-white-blended-90.png') repeat;
+}
+
+:root[saved-theme="dark"] body {
+  background: url('/garden/attachments/glass-tile-black-blended-70.png') repeat;
+}
+
+.page {
+  & article {
+    & li:has(> input[type="checkbox"]) {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    & li:has(> input[type="checkbox"]:checked) {
+      text-decoration: line-through;
+      text-decoration-color: var(--gray);
+      color: var(--gray);
+    }
+
+    p > strong {
+      color: var(--dark);
+    }
+  }
+}
+
+.explorer-content {
+  li {
+    a {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+      display: block;
+    }
+  }
+}
+
+// Mobile header and explorer backgrounds
+@media all and ($mobile) {
+  // Sticky header (hamburger + search area) - extend to full viewport width
+  .page > #quartz-body > .sidebar.left:has(.explorer) {
+    background: rgba(252, 252, 252, 0.95);
+    margin-left: calc(-1 * var(--bodyPadding, 1rem));
+    margin-right: calc(-1 * var(--bodyPadding, 1rem));
+    padding-left: var(--bodyPadding, 1rem);
+    padding-right: var(--bodyPadding, 1rem);
+  }
+
+  // Expanded explorer menu
+  .explorer .explorer-content {
+    background: rgba(252, 252, 252, 0.95);
+    padding-left: var(--bodyPadding, 1rem);
+    padding-right: var(--bodyPadding, 1rem);
+  }
+}
+
+// Dark mode backgrounds
+:root[saved-theme="dark"] {
+  @media all and ($mobile) {
+    .page > #quartz-body > .sidebar.left:has(.explorer) {
+      background: rgba(18, 18, 20, 0.95);
+    }
+
+    .explorer .explorer-content {
+      background: rgba(18, 18, 20, 0.95);
+      padding-left: var(--bodyPadding, 1rem);
+      padding-right: var(--bodyPadding, 1rem);
+    }
+  }
+}
