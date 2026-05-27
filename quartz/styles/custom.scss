@@ -2,11 +2,11 @@
 
 // put your custom CSS here!
 body {
-  background: url('/garden/attachments/glass-tile-white-blended-90.png') repeat;
+  background: url('attachments/glass-tile-white-blended-90.png') repeat;
 }
 
 :root[saved-theme="dark"] body {
-  background: url('/garden/attachments/glass-tile-black-blended-70.png') repeat;
+  background: none;
 }
 
 .page {
