@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-if [ ! -d content ]; then
-    echo "No content directory. Did you remember to symlink your Obsidian vault?" >&2
-    echo "ln -s /path/to/obsidian/vault content" >&2
+if [ ! -d _content ]; then
+    echo "No _content directory. Did you remember to symlink your Obsidian vault?" >&2
+    echo "ln -s /path/to/obsidian/vault _content" >&2
     exit 1
 fi
 
@@ -15,12 +15,12 @@ compare() {
 }
 
 build_only() {
-    npx quartz build --concurrency 8 && cp -v quartz/static/.htaccess public/
+    npx quartz build --concurrency 8 -d _content
     test -f public/index.html
 }
 
 if [ "$1" == "test" -o "$1" == "--test" ]; then
-    npx quartz build --serve
+    npx quartz build --serve -d _content
 elif [ "$1" == "rsync" -o "$1" == "--rsync" ]; then
     rsync_only
 elif [ "$1" == "build-only" -o "$1" == "--build-only" ]; then
